@@ -1,2 +1,2 @@
 # Study-React
-Summer Vacation React Study
+ - book : 리액트를 다루는 기술
