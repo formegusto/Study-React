@@ -26,7 +26,8 @@ class EditUserComponent extends Component {
     }
 
     loadUser = () => {
-        ApiService.fetchUserByID(window.localStorage.getItem("userID"))
+        ApiService.fetchUserByID(window.localStorage.getItem("userID"),
+            window.localStorage.getItem("userNAME"))
         .then( res => {
             let user = res.data;
             this.setState({

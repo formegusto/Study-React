@@ -18,6 +18,7 @@ class UserListComponent extends Component {
     reloadUserList = () => {
         ApiService.fetchUsers()
         .then( res => {
+            console.log(res.data[0].username);
             this.setState({
                 users: res.data
             })
@@ -43,8 +44,9 @@ class UserListComponent extends Component {
         })
     }
 
-    editUser = (ID) => {
+    editUser = (ID,NAME) => {
         window.localStorage.setItem("userID",ID);
+        window.localStorage.setItem("userNAME",NAME);
         this.props.history.push('/edit-user');
     }
 
@@ -79,7 +81,7 @@ class UserListComponent extends Component {
                                 <td>{user.age}</td>
                                 <td>{user.salary}</td>
                                 <td>
-                                    <button onClick={() => this.editUser(user.id)}>Edit</button>
+                                    <button onClick={() => this.editUser(user.id,user.username)}>Edit</button>
                                     <button onClick={() => this.deleteUser(user.id)}>Delete</button>
                                 </td>
                             </tr>

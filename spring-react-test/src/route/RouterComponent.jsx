@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import UserListComponent from "../user/UserListComponent";
-import AddUserComponent from "../user/AddUserComponent";
-import EditUserComponent from "../user/EditUserComponent"
+import SignInTestComponent from '../user/SignInTestComponent';
+import SignUpTestComponent from '../user/SignUpTestComponent';
+import SignInIngTestComponent from '../user/SignInIngTestComponent';
 
 const AppRouter = () => {
     return(
@@ -10,10 +10,9 @@ const AppRouter = () => {
             <BrowserRouter>
                 <div style={style}>
                     <Switch>
-                        <Route exact path="/" component={UserListComponent}/>
-                        <Route path="/users" component={UserListComponent}/>
-                        <Route path="/add-user" component={AddUserComponent}/>
-                        <Route path="/edit-user" component={EditUserComponent}/>
+                        <Route exact path="/" component={SignInIngTestComponent}/>
+                        <Route path="/signin" component={SignInTestComponent}/>
+                        <Route path="/signup" component={SignUpTestComponent}/>
                     </Switch>
                 </div>
             </BrowserRouter>
@@ -22,7 +21,7 @@ const AppRouter = () => {
 }
 
 const style = {
-    color: 'red',
+    color: 'blue',
     margin: '10px'
 }
 
