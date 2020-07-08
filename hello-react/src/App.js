@@ -1,8 +1,12 @@
-import React from 'react';
-import EventPracticeFunc from './EventPracticeFunc';
+import React, { Component } from 'react';
+import IterationSample from './IterationSample.js';
 
-const App = () => {
-  return <EventPracticeFunc/>
+class App extends Component {
+  render() {
+    return (
+      <IterationSample/>
+    ) 
+  };
 };
 
 export default App;
