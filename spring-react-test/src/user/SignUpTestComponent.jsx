@@ -44,6 +44,23 @@ class SignUpTestComponent extends Component {
         this.props.history.push('/signin')
     }
 
+    reqSecret = (e) => {
+        e.preventDefault();
+
+        let user = {
+            id:this.state.id,
+            password:this.state.password,
+            email:this.state.email
+        }
+        ApiService.reqSecret(user)
+        .then(res => {
+            console.log("메일 테스트 완료");
+        })
+        .catch(err => {
+            console.log("메일 테스트 실패");
+        })
+    }
+
     render(){
         return(
             <div>
@@ -60,6 +77,7 @@ class SignUpTestComponent extends Component {
                     <div>
                         <label>EMAIL:</label>
                         <input type="text" name="email" value={this.state.email} onChange={this.onChange} />
+                        <button onClick={this.reqSecret}>인증번호 요청</button>
                     </div>
                     <button onClick={this.signinUser}>Cancle</button>
                     <button onClick={this.signupUser}>SignUp</button>

@@ -16,6 +16,9 @@ class ApiService {
     returnTest(){
         return axios.get(USER_API_BASE_URL + "/users/test/returnTest");
     }
+    reqSecret(user){
+        return axios.post(USER_API_BASE_URL + "/users/account/signup/reqsecret",user);
+    }
 
     // ideaApiService
     testPostIdea(idea){
