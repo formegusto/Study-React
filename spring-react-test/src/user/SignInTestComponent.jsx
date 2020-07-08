@@ -43,6 +43,10 @@ class SignInTestComponent extends Component {
         this.props.history.push('/signup')
     }
 
+    returnTest = () => {
+        this.props.history.push('/returnTest');
+    }
+
     render(){
         return(
             <div>
@@ -58,6 +62,7 @@ class SignInTestComponent extends Component {
                     </div>
                     <button onClick={this.signinUser}>SignIn</button>
                     <button onClick={this.signupUser}>SignUp</button>
+                    <button onClick={this.returnTest}>returnTest</button>
                 </form>
             </div>
         )
