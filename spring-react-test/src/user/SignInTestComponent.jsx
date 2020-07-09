@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import ApiService from '../ApiService';
+import axios from 'axios';
 
 class SignInTestComponent extends Component {
     constructor(props){
@@ -47,6 +48,38 @@ class SignInTestComponent extends Component {
         this.props.history.push('/returnTest');
     }
 
+    token = (e) => {
+        e.preventDefault();
+
+        let user = {
+            id:this.state.id,
+            password:this.state.password
+        }
+        ApiService.shootToken(user)
+        .then(res => {
+            localStorage.setItem('token', res.data);
+            this.setupAxiosInterceptors();
+            console.log(res);
+        }).catch(err => {
+            console.log("에러 확인");
+        })
+    }
+
+    setupAxiosInterceptors() {
+        axios.interceptors.request.use(
+            config => {
+                const token = localStorage.getItem('token');
+                console.log('여기는오겠지');
+                if (token) {
+                    config.headers['Authorization'] = token;
+                }
+                return config;
+            },
+            error => {
+                Promise.reject(error)
+            });
+    }
+
     render(){
         return(
             <div>
@@ -63,6 +96,7 @@ class SignInTestComponent extends Component {
                     <button onClick={this.signinUser}>SignIn</button>
                     <button onClick={this.signupUser}>SignUp</button>
                     <button onClick={this.returnTest}>returnTest</button>
+                    <button onClick={this.token}>ShootToken</button>
                 </form>
             </div>
         )

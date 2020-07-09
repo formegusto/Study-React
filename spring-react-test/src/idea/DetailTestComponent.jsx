@@ -45,11 +45,16 @@ class DetailTestComponent extends Component {
                 <h2>seq : {this.state.idea.idea_seq}</h2>
                 <h2>name : {this.state.idea.project_name}</h2>
                 <h2>short : {this.state.idea.short_description}</h2>
-                <h2>motivation : {this.state.motivation.content} </h2>
-                <h2>need : {this.state.need.content} </h2>
-                <h2>strategy : {this.state.strategy.content} </h2>
-                <h2>market_analysis : {this.state.market_analysis.content} </h2>
-                <h2>competitiveness : {this.state.competitiveness.content} </h2>
+                <h2>motivation : {this.state.motivation.open_status === 1 ? 
+                    this.state.motivation.content : "가려졌다 수고해라" }  </h2>
+                <h2>need : {this.state.need.open_status === 1 ? 
+                    this.state.need.content : "가려졌다 수고해라" } </h2>
+                <h2>strategy : {this.state.strategy.open_status === 1 ? 
+                    this.state.strategy.content : "가려졌다 수고해라" } </h2>
+                <h2>market_analysis : {this.state.market_analysis.open_status === 1 ? 
+                    this.state.market_analysis.content : "가려졌다 수고해라" } </h2>
+                <h2>competitiveness : {this.state.competitiveness.open_status === 1 ? 
+                    this.state.competitiveness.content : "가려졌다 수고해라" } </h2>
                 <hr/>
                 <button onClick={this.goHome}>집가자..</button>
             </div>

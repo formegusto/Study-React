@@ -4,6 +4,9 @@ const USER_API_BASE_URL = "http://localhost:8080"
 
 class ApiService {
     // userApiService
+    shootToken(user){
+        return axios.post(USER_API_BASE_URL + '/users/account/token',user);
+    }
     signinUser(user){
         return axios.post(USER_API_BASE_URL + '/users/account/signin',user);
     }
@@ -22,13 +25,13 @@ class ApiService {
 
     // ideaApiService
     testPostIdea(idea){
-        return axios.post(USER_API_BASE_URL + "/idea/posts",idea);
+        return axios.post(USER_API_BASE_URL + "/idea/post",idea);
     }
     listIdea(){
         return axios.get(USER_API_BASE_URL + "/idea/list");
     }
     testDetailIdea(idea_seq,id){
-        return axios.get(USER_API_BASE_URL + "/idea/details?idea_seq=" + idea_seq + "&id=" + id);
+        return axios.get(USER_API_BASE_URL + "/idea/detail?idea_seq=" + idea_seq + "&id=" + id);
     }
 }
 

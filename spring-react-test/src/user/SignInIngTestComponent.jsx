@@ -6,7 +6,7 @@ class SignInIngTestComponent extends Component {
        super(props);
        
        this.state = {
-           user : window.localStorage.getItem("user"),
+           user : 'anonymous',
            idealist : []
        }
     }
@@ -24,6 +24,11 @@ class SignInIngTestComponent extends Component {
         .catch(err => {
             console.log("아이디어 로드 중 에러 발생");
         })
+        if( window.localStorage.getItem("user") != null ){
+            this.setState({
+                user:window.localStorage.getItem("user")
+            });
+        };
     }
 
     LogOut = () => {
@@ -44,11 +49,9 @@ class SignInIngTestComponent extends Component {
     render() {
         return (
         <div>
-            {this.state.user ? (
-            <div>
                 <h2>{this.state.user} 님 환영합니다리~</h2>
                 <button onClick={this.goPost}>등록하기</button>
-                <button onClick={this.LogOut}>Log Out</button>
+                {this.state.user === 'anonymous' ? <button >너한테 줄 로그아웃은 없음</button> : <button onClick={this.LogOut}>로그아웃</button> }
                 {this.state.idealist.map( idea =>
                 <div key={idea.idea_seq}>
                             <h2>seq : {idea.idea_seq}</h2>
@@ -62,10 +65,6 @@ class SignInIngTestComponent extends Component {
                             <hr/>
                 </div>            
                 )}
-            </div>
-            ) : (
-                <h1>{this.props.history.push('/signin')}</h1>
-            )}
         </div>
         );
     }
