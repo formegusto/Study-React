@@ -26,6 +26,7 @@ class SignInTestComponent extends Component {
             id:this.state.id,
             password:this.state.password,
         }
+        console.log(user);
         ApiService.signinUser(user)
         .then( res => {
             this.setState({
@@ -55,10 +56,9 @@ class SignInTestComponent extends Component {
             id:this.state.id,
             password:this.state.password
         }
+        console.log(user);
         ApiService.shootToken(user)
         .then(res => {
-            localStorage.setItem('token', res.data);
-            this.setupAxiosInterceptors();
             console.log(res);
         }).catch(err => {
             console.log("에러 확인");
@@ -69,7 +69,6 @@ class SignInTestComponent extends Component {
         axios.interceptors.request.use(
             config => {
                 const token = localStorage.getItem('token');
-                console.log('여기는오겠지');
                 if (token) {
                     config.headers['Authorization'] = token;
                 }

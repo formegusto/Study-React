@@ -5,10 +5,10 @@ const USER_API_BASE_URL = "http://localhost:8080"
 class ApiService {
     // userApiService
     shootToken(user){
-        return axios.post(USER_API_BASE_URL + '/users/account/token',user);
+        return axios.get(USER_API_BASE_URL + '/users/account/token?id=' + user.id + '&password=' + user.password,{ withCredentials: true });
     }
     signinUser(user){
-        return axios.post(USER_API_BASE_URL + '/users/account/signin',user);
+        return axios.post(USER_API_BASE_URL + '/users/account/signin',user, { withCredentials: true });
     }
     signupUser(user){
         return axios.post(USER_API_BASE_URL + "/users/account/signup", user);
@@ -25,13 +25,13 @@ class ApiService {
 
     // ideaApiService
     testPostIdea(idea){
-        return axios.post(USER_API_BASE_URL + "/idea/post",idea);
+        return axios.post(USER_API_BASE_URL + "/idea/post",idea, { withCredentials: true });
     }
     listIdea(){
-        return axios.get(USER_API_BASE_URL + "/idea/list");
+        return axios.get(USER_API_BASE_URL + "/idea/list", { withCredentials: true });
     }
     testDetailIdea(idea_seq,id){
-        return axios.get(USER_API_BASE_URL + "/idea/detail?idea_seq=" + idea_seq + "&id=" + id);
+        return axios.get(USER_API_BASE_URL + "/idea/detail?idea_seq=" + idea_seq + "&id=" + id, { withCredentials: true });
     }
 }
 
