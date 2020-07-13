@@ -12,7 +12,6 @@ class SignInIngTestComponent extends Component {
     }
 
     componentDidMount(){
-        console.log(this.state.user);
         ApiService.listIdea()
         .then(res => {
             this.setState({
@@ -29,6 +28,7 @@ class SignInIngTestComponent extends Component {
                 user:window.localStorage.getItem("user")
             });
         };
+        console.log(this.state.user);
     }
 
     LogOut = () => {
@@ -46,6 +46,12 @@ class SignInIngTestComponent extends Component {
         this.props.history.push('/detailTest')
     }
 
+    goUpdate = (e) => {
+        console.log(e.target.value + "번 아이디어 수정창으로 이동합니다.");
+        window.localStorage.setItem("update_iseq",e.target.value);
+        this.props.history.push('/update');
+    }
+
     render() {
         return (
         <div>
@@ -61,7 +67,11 @@ class SignInIngTestComponent extends Component {
                             <h2>category : {idea.category} </h2>
                             <h2>read_count : {idea.read_count} </h2>
                             <h2>Likey : {idea.likey_count} </h2>
-                            <button onClick={this.goDetail} value={idea.idea_seq}>이거는 나오냐?</button>
+                            <button onClick={this.goDetail} value={idea.idea_seq}>상세 내용 보기</button>
+                            {idea.banker_id === this.state.user ? <button onClick={this.goUpdate} value={idea.idea_seq}>수정</button> 
+                                                : null}
+                            {idea.banker_id === this.state.user ? <button onClick={this.goUpdate} value={idea.idea_seq}>삭제</button> 
+                                                : null}
                             <hr/>
                 </div>            
                 )}

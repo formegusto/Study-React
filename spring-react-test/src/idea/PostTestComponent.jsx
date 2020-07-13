@@ -126,6 +126,7 @@ class PostTestComponent extends Component {
             this.props.history.push('/');
         })
         .catch(err => {
+            console.log(err);
             console.log("아 에러");
         })
     }

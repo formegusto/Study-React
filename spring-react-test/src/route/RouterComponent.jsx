@@ -6,6 +6,7 @@ import SignInIngTestComponent from '../user/SignInIngTestComponent';
 import ReturnTestComponent from '../test/ReturnTestComponent';
 import PostTestComponent from '../idea/PostTestComponent';
 import DetailTestComponent from '../idea/DetailTestComponent';
+import UpdateTestComponent from '../idea/UpdateTestComponent';
 
 const AppRouter = () => {
     return(
@@ -19,6 +20,7 @@ const AppRouter = () => {
                         <Route path="/returnTest" component={ReturnTestComponent}/>
                         <Route path="/postTest" component={PostTestComponent}/>
                         <Route path="/detailTest" component={DetailTestComponent}/>
+                        <Route path="/update" component={UpdateTestComponent}/>
                     </Switch>
                 </div>
             </BrowserRouter>

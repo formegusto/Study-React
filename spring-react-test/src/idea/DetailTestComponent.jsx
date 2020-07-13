@@ -39,6 +39,10 @@ class DetailTestComponent extends Component {
         this.props.history.push("/")
     }
 
+    goUpdate = () => {
+        this.props.history.push("/update");
+    }
+
     render() {
         return (
             <div>
@@ -46,17 +50,18 @@ class DetailTestComponent extends Component {
                 <h2>name : {this.state.idea.project_name}</h2>
                 <h2>short : {this.state.idea.short_description}</h2>
                 <h2>motivation : {this.state.motivation.open_status === 1 ? 
-                    this.state.motivation.content : "가려졌다 수고해라" }  </h2>
+                    this.state.motivation.content : "가려졌다 수고해라 나의 몸값은 " + this.state.motivation.price + "원 이다" }</h2>
                 <h2>need : {this.state.need.open_status === 1 ? 
-                    this.state.need.content : "가려졌다 수고해라" } </h2>
+                    this.state.need.content : "가려졌다 수고해라 나의 몸값은 " + this.state.need.price + "원 이다" } </h2>
                 <h2>strategy : {this.state.strategy.open_status === 1 ? 
-                    this.state.strategy.content : "가려졌다 수고해라" } </h2>
+                    this.state.strategy.content : "가려졌다 수고해라 나의 몸값은 " + this.state.strategy.price + "원 이다" } </h2>
                 <h2>market_analysis : {this.state.market_analysis.open_status === 1 ? 
-                    this.state.market_analysis.content : "가려졌다 수고해라" } </h2>
+                    this.state.market_analysis.content : "가려졌다 수고해라 나의 몸값은 " + this.state.market_analysis.price + "원 이다" } </h2>
                 <h2>competitiveness : {this.state.competitiveness.open_status === 1 ? 
-                    this.state.competitiveness.content : "가려졌다 수고해라" } </h2>
+                    this.state.competitiveness.content : "가려졌다 수고해라 나의 몸값은 " + this.state.competitiveness.price + "원 이다" } </h2>
                 <hr/>
                 <button onClick={this.goHome}>집가자..</button>
+                <button onClick={this.goUpdate}>수정하기</button>
             </div>
         )
     }

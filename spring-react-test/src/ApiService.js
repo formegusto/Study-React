@@ -25,13 +25,16 @@ class ApiService {
 
     // ideaApiService
     testPostIdea(idea){
-        return axios.post(USER_API_BASE_URL + "/idea/post",idea, { withCredentials: true });
+        return axios.post(USER_API_BASE_URL + "/idea/post",idea, {  withCredentials: true });
     }
     listIdea(){
         return axios.get(USER_API_BASE_URL + "/idea/list", { withCredentials: true });
     }
     testDetailIdea(idea_seq,id){
         return axios.get(USER_API_BASE_URL + "/idea/detail?idea_seq=" + idea_seq + "&id=" + id, { withCredentials: true });
+    }
+    updateIdea(idea){
+        return axios.patch(USER_API_BASE_URL + "/idea/update", idea, { withCredentials: true });
     }
 }
 
