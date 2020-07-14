@@ -12,7 +12,8 @@ class DetailTestComponent extends Component {
             need : {},
             strategy : {},
             market_analysis : {},
-            competitiveness : {}
+            competitiveness : {},
+            goodsSeqList : []
         }
     }
     componentDidMount = () => {
@@ -24,8 +25,17 @@ class DetailTestComponent extends Component {
                 need : res.data.goodsList[1],
                 strategy : res.data.goodsList[2],
                 market_analysis : res.data.goodsList[3],
-                competitiveness : res.data.goodsList[4]
+                competitiveness : res.data.goodsList[4],
+                goodsSeqList : res.data.goodsList.reduce((acc, cur) =>{
+                            if(cur.open_status == 0){
+                                console.log("들어옴");
+                                acc.push(cur.goods_seq);
+                                return acc;
+                            }
+                            return acc;
+                        },[])
             })
+            console.log(this.state.goodsSeqList);
             console.log(this.state.idea);
             console.log(this.state.idea.goodsList[0].content);
         })
@@ -43,6 +53,38 @@ class DetailTestComponent extends Component {
         this.props.history.push("/update");
     }
 
+    goAllPurchase = (e) => {
+        let goodsSeqList_ = this.state.goodsSeqList;
+        console.log(goodsSeqList_);
+        ApiService.purchaseGoods(goodsSeqList_);
+    }
+
+    goPurchase = (e) => {
+        let goodsSeqList_ = [e.target.value];
+        ApiService.purchaseGoods(goodsSeqList_);
+    }
+
+    goGoodsSeq = (e) => {
+        console.log("넣빼 전 ===> " + this.state.goodsSeqList);
+        let goodsSeqList_ = this.state.goodsSeqList;
+        if(e.target.checked == "1"){
+            goodsSeqList_.push(e.target.value);
+            this.setState ( {
+                goodsSeqList : goodsSeqList_
+            })
+            console.log("리스트에 넣자");
+            console.log("넣고 난 후 ===> " + this.state.goodsSeqList);
+        } else {
+            console.log("리스트에서 빼자");
+            let index = goodsSeqList_.indexOf(e.target.value);
+            goodsSeqList_.splice(index,1);
+            this.setState ( {
+                goodsSeqList : goodsSeqList_
+            })
+            console.log("뺀후 ===> " + this.state.goodsSeqList);
+        }
+    }
+
     render() {
         return (
             <div>
@@ -50,18 +92,20 @@ class DetailTestComponent extends Component {
                 <h2>name : {this.state.idea.project_name}</h2>
                 <h2>short : {this.state.idea.short_description}</h2>
                 <h2>motivation : {this.state.motivation.open_status === 1 ? 
-                    this.state.motivation.content : "가려졌다 수고해라 나의 몸값은 " + this.state.motivation.price + "원 이다" }</h2>
+                    this.state.motivation.content : <div><button value={this.state.motivation.goods_seq} onClick={this.goPurchase}>구매하고 봐라 나의 몸값은 ${this.state.motivation.price} 원이다.</button><input type="checkbox" value={this.state.motivation.goods_seq} onChange={this.goGoodsSeq}/></div> } </h2>
                 <h2>need : {this.state.need.open_status === 1 ? 
-                    this.state.need.content : "가려졌다 수고해라 나의 몸값은 " + this.state.need.price + "원 이다" } </h2>
+                    this.state.need.content :<div><button value={this.state.need.goods_seq} onClick={this.goPurchase}>구매하고 봐라 나의 몸값은 ${this.state.need.price} 원이다.</button><input type="checkbox" value={this.state.need.goods_seq} onChange={this.goGoodsSeq}/></div> } </h2>
                 <h2>strategy : {this.state.strategy.open_status === 1 ? 
-                    this.state.strategy.content : "가려졌다 수고해라 나의 몸값은 " + this.state.strategy.price + "원 이다" } </h2>
+                    this.state.strategy.content : <div><button value={this.state.strategy.goods_seq} onClick={this.goPurchase}>구매하고 봐라 나의 몸값은 ${this.state.strategy.price} 원이다.</button><input type="checkbox" value={this.state.strategy.goods_seq} onChange={this.goGoodsSeq}/></div> } </h2>
                 <h2>market_analysis : {this.state.market_analysis.open_status === 1 ? 
-                    this.state.market_analysis.content : "가려졌다 수고해라 나의 몸값은 " + this.state.market_analysis.price + "원 이다" } </h2>
+                    this.state.market_analysis.content : <div><button value={this.state.market_analysis.goods_seq} onClick={this.goPurchase}>구매하고 봐라 나의 몸값은 ${this.state.market_analysis.price} 원이다.</button><input type="checkbox" value={this.state.market_analysis.goods_seq} onChange={this.goGoodsSeq}/></div> } </h2>
                 <h2>competitiveness : {this.state.competitiveness.open_status === 1 ? 
-                    this.state.competitiveness.content : "가려졌다 수고해라 나의 몸값은 " + this.state.competitiveness.price + "원 이다" } </h2>
+                    this.state.competitiveness.content : <div><button value={this.state.competitiveness.goods_seq} onClick={this.goPurchase}>구매하고 봐라 나의 몸값은 ${this.state.competitiveness.price} 원이다.</button><input type="checkbox" value={this.state.competitiveness.goods_seq} onChange={this.goGoodsSeq}/></div> } </h2>
                 <hr/>
                 <button onClick={this.goHome}>집가자..</button>
                 <button onClick={this.goUpdate}>수정하기</button>
+                <button onClick={this.goAllPurchase}>전체 구매</button>
+                <button onClick={this.goPurchase}>체크한거 사기</button>
             </div>
         )
     }

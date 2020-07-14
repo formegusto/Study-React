@@ -36,6 +36,9 @@ class ApiService {
     updateIdea(idea){
         return axios.patch(USER_API_BASE_URL + "/idea/update", idea, { withCredentials: true });
     }
+    purchaseGoods(goodsSeqList){
+        return axios.post(USER_API_BASE_URL + "/idea/purchase", goodsSeqList, { withCredentials: true });
+    }
 }
 
 export default new ApiService();
