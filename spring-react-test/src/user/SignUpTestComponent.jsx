@@ -9,7 +9,10 @@ class SignUpTestComponent extends Component {
             id:'',
             password:'',
             email:'',
-            message:''
+            message:'',
+            secretCode: '',
+            codeForm: '',
+            code: ''
         }
     }
 
@@ -17,6 +20,24 @@ class SignUpTestComponent extends Component {
         this.setState({
             [e.target.name] : e.target.value
         })
+    }
+    onChage_2 = (e) => {
+        [e.target.name] = e.target.value
+        this.setState({
+            code : e.target.value
+        })
+    }
+
+    onCheck = (e) => {
+        e.preventDefault();
+
+        let code = this.state.code;
+        let secCode = this.state.secretCode;
+        if(code === secCode){
+            alert("아 같네요.");
+        } else {
+            alert("메일 좀 확인해주시죠? 땡임");
+        }
     }
 
     signupUser = (e) => {
@@ -33,7 +54,7 @@ class SignUpTestComponent extends Component {
                 message: user.id + "회원정보가 등록되었습니다."
             })
             console.log(this.state.message);
-            this.props.history.push('/');
+            this.props.history.push('/signin');
         })
         .catch(err => {
             console.log('saveUser() Error', err);
@@ -55,6 +76,10 @@ class SignUpTestComponent extends Component {
         ApiService.reqSecret(user)
         .then(res => {
             console.log("메일 테스트 완료");
+            this.setState({
+                secretCode : res.data + "",
+                codeForm : <div><input name="code" placeholder="발급받은 코드를 입력해주라" onChange={this.onChage_2}/><button onClick={this.onCheck}>확인하기</button></div>
+            })
         })
         .catch(err => {
             console.log("메일 테스트 실패");
@@ -77,7 +102,8 @@ class SignUpTestComponent extends Component {
                     <div>
                         <label>EMAIL:</label>
                         <input type="text" name="email" value={this.state.email} onChange={this.onChange} />
-                        <button onClick={this.reqSecret}>인증번호 요청</button>
+                        <button onClick={this.reqSecret}>인증번호 요청</button><br/>
+                        {this.state.codeForm}
                     </div>
                     <button onClick={this.signinUser}>Cancle</button>
                     <button onClick={this.signupUser}>SignUp</button>

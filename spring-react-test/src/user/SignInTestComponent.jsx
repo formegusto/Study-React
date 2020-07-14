@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import ApiService from '../ApiService';
-import axios from 'axios';
 
 class SignInTestComponent extends Component {
     constructor(props){
@@ -37,46 +36,12 @@ class SignInTestComponent extends Component {
             this.props.history.push('/');
         })
         .catch(err => {
-            console.log('saveUser() Error', err);
+            console.log('signinUser() Error', err);
         });
     }
 
     signupUser = () => {
         this.props.history.push('/signup')
-    }
-
-    returnTest = () => {
-        this.props.history.push('/returnTest');
-    }
-
-    token = (e) => {
-        e.preventDefault();
-
-        let user = {
-            id:this.state.id,
-            password:this.state.password
-        }
-        console.log(user);
-        ApiService.shootToken(user)
-        .then(res => {
-            console.log(res);
-        }).catch(err => {
-            console.log("에러 확인");
-        })
-    }
-
-    setupAxiosInterceptors() {
-        axios.interceptors.request.use(
-            config => {
-                const token = localStorage.getItem('token');
-                if (token) {
-                    config.headers['Authorization'] = token;
-                }
-                return config;
-            },
-            error => {
-                Promise.reject(error)
-            });
     }
 
     render(){
@@ -94,8 +59,6 @@ class SignInTestComponent extends Component {
                     </div>
                     <button onClick={this.signinUser}>SignIn</button>
                     <button onClick={this.signupUser}>SignUp</button>
-                    <button onClick={this.returnTest}>returnTest</button>
-                    <button onClick={this.token}>ShootToken</button>
                 </form>
             </div>
         )

@@ -3,10 +3,11 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import SignInTestComponent from '../user/SignInTestComponent';
 import SignUpTestComponent from '../user/SignUpTestComponent';
 import SignInIngTestComponent from '../user/SignInIngTestComponent';
-import ReturnTestComponent from '../test/ReturnTestComponent';
 import PostTestComponent from '../idea/PostTestComponent';
 import DetailTestComponent from '../idea/DetailTestComponent';
 import UpdateTestComponent from '../idea/UpdateTestComponent';
+import LikeyListComponent from '../idea/LikeyListComponent';
+import MyListComponent from '../idea/MyListComponent';
 
 const AppRouter = () => {
     return(
@@ -17,10 +18,11 @@ const AppRouter = () => {
                         <Route exact path="/" component={SignInIngTestComponent}/>
                         <Route path="/signin" component={SignInTestComponent}/>
                         <Route path="/signup" component={SignUpTestComponent}/>
-                        <Route path="/returnTest" component={ReturnTestComponent}/>
                         <Route path="/postTest" component={PostTestComponent}/>
                         <Route path="/detailTest" component={DetailTestComponent}/>
                         <Route path="/update" component={UpdateTestComponent}/>
+                        <Route path="/likeyList" component={LikeyListComponent}/>
+                        <Route path="/myList" component={MyListComponent}/>
                     </Switch>
                 </div>
             </BrowserRouter>

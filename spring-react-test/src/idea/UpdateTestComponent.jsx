@@ -16,7 +16,7 @@ class UpdateTestComponent extends Component {
     }
     
     componentDidMount = () => {
-        ApiService.testDetailIdea(window.localStorage.getItem("update_iseq"), window.localStorage.getItem("user"))
+        ApiService.testDetailUpIdea(window.localStorage.getItem("update_iseq"))
                 .then(res => {
                     this.setState ({
                         project_name : res.data.project_name,

@@ -1,22 +1,18 @@
 import React, {Component} from 'react';
 import ApiService from '../ApiService';
 
-class SignInIngTestComponent extends Component {
+class LikeyListComponent extends Component {
     constructor(props){
        super(props);
        
        this.state = {
-           user : 'unAuth',
-           idealist : [],
-           search : {
-                type : '',
-                keyword : ''
-           }
+           user : 'anonymous',
+           idealist : []
        }
     }
 
     componentDidMount(){
-        ApiService.listIdea()
+        ApiService.getLikeyList()
         .then(res => {
             this.setState({
                 idealist : res.data
@@ -36,14 +32,8 @@ class SignInIngTestComponent extends Component {
     }
 
     LogOut = () => {
-        ApiService.logoutUser()
-        .then(res => {
-            window.localStorage.removeItem("user");
-            this.props.history.push('/signin');
-        })
-        .catch(err => {
-            console.log(err)
-        })
+        window.localStorage.removeItem("user");
+        this.props.history.push('/signin');
     }
 
     goPost = () => {
@@ -65,58 +55,18 @@ class SignInIngTestComponent extends Component {
     goLikeyList = () => {
         this.props.history.push('/likeyList');
     }
-
     goMyList = () => {
         this.props.history.push('/myList');
-    }
-
-    goSearch = (e) => {
-        let search_ = this.state.search;
-        ApiService.searchList(search_)
-            .then(res => {
-                console.log(res);
-                this.setState({
-                    idealist : res.data
-                })
-            })
-            .catch(err => {
-                
-            })
-    }
-
-    onChange = (e) => {
-        let search_ = this.state.search;
-        search_.keyword = e.target.value;
-        this.setState({
-            search : search_
-        });
-        console.log(this.state.search);
-    }
-
-    onTypeChange = (e) => {
-        let search_ = this.state.search;
-        search_.type = e.target.value;
-        this.setState({
-            search : search_
-        });
-        console.log(this.state.search);
     }
 
     render() {
         return (
         <div>
-                <h2>{this.state.user} 님 환영합니다리~</h2>
+                <h2>{this.state.user} 님의 관심리스트</h2>
                 <button onClick={this.goPost}>등록하기</button>
                 {this.state.user === 'anonymous' ? <button >너한테 줄 로그아웃은 없음</button> : <button onClick={this.LogOut}>로그아웃</button> }
                 <button onClick={this.goLikeyList}>관심리스트</button>
-                <button onClick={this.goMyList}>마이리스트</button><br/>
-                <select name="type" onChange={this.onTypeChange}>
-                    <option value="">type</option>
-                    <option value="searchWord">단어로</option>
-                    <option value="category">카테고리로</option>
-                    <option value="banker">작성자로</option>
-                </select>
-                <input name="keyword" onChange={this.onChange} type="text" placeholder="키워드를 입력해라"></input><button onClick={this.goSearch}>검색</button>
+                <button onClick={this.goMyList}>마이리스트</button>
                 {this.state.idealist.map( idea =>
                 <div key={idea.idea_seq}>
                             <h2>seq : {idea.idea_seq}</h2>
@@ -139,4 +89,4 @@ class SignInIngTestComponent extends Component {
     }
 }
 
-export default SignInIngTestComponent;
+export default LikeyListComponent;

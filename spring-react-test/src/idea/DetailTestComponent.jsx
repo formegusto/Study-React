@@ -13,11 +13,12 @@ class DetailTestComponent extends Component {
             strategy : {},
             market_analysis : {},
             competitiveness : {},
-            goodsSeqList : []
+            goodsSeqList : [],
+            do_you_like : '',
         }
     }
     componentDidMount = () => {
-        ApiService.testDetailIdea(this.state.idea_seq, window.localStorage.getItem("user"))
+        ApiService.testDetailIdea(this.state.idea_seq)
         .then(res => {
             this.setState({
                 idea : res.data,
@@ -27,8 +28,7 @@ class DetailTestComponent extends Component {
                 market_analysis : res.data.goodsList[3],
                 competitiveness : res.data.goodsList[4],
                 goodsSeqList : res.data.goodsList.reduce((acc, cur) =>{
-                            if(cur.open_status == 0){
-                                console.log("들어옴");
+                            if(cur.open_status === 0){
                                 acc.push(cur.goods_seq);
                                 return acc;
                             }
@@ -41,6 +41,18 @@ class DetailTestComponent extends Component {
         })
         .catch(err => {
 
+        })
+        let likey = {
+            idea_seq : this.state.idea_seq
+        }
+        ApiService.doYouLike(likey)
+        .then(res => {
+            this.setState({
+                do_you_like : res.data
+            })
+        })
+        .catch(err => {
+            console.log("에러다 이마");
         })
     }
 
@@ -57,17 +69,20 @@ class DetailTestComponent extends Component {
         let goodsSeqList_ = this.state.goodsSeqList;
         console.log(goodsSeqList_);
         ApiService.purchaseGoods(goodsSeqList_);
+        this.props.history.push("/detailTest");
     }
 
     goPurchase = (e) => {
         let goodsSeqList_ = [e.target.value];
         ApiService.purchaseGoods(goodsSeqList_);
+        this.props.history.push("/detailTest");
     }
 
     goGoodsSeq = (e) => {
         console.log("넣빼 전 ===> " + this.state.goodsSeqList);
         let goodsSeqList_ = this.state.goodsSeqList;
-        if(e.target.checked == "1"){
+        console.log(e.target.checked);
+        if(e.target.checked === true){
             goodsSeqList_.push(e.target.value);
             this.setState ( {
                 goodsSeqList : goodsSeqList_
@@ -83,6 +98,20 @@ class DetailTestComponent extends Component {
             })
             console.log("뺀후 ===> " + this.state.goodsSeqList);
         }
+    }
+
+    goLikey = () => {
+        let likey = {
+            idea_seq : this.state.idea_seq
+        }
+        ApiService.likey(likey);
+    }
+
+    gounLikey = () => {
+        let likey = {
+            idea_seq : this.state.idea_seq
+        }
+        ApiService.unLikey(likey);
     }
 
     render() {
@@ -106,6 +135,8 @@ class DetailTestComponent extends Component {
                 <button onClick={this.goUpdate}>수정하기</button>
                 <button onClick={this.goAllPurchase}>전체 구매</button>
                 <button onClick={this.goPurchase}>체크한거 사기</button>
+                {this.state.do_you_like === 1 ? <button onClick={this.gounLikey}>안좋아졌어요</button>
+                    : <button onClick={this.goLikey}>좋아요 누르기</button>} 
             </div>
         )
     }
