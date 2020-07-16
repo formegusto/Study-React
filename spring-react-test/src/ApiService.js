@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const USER_API_BASE_URL = "http://localhost:8080"
+const USER_API_BASE_URL = "http://192.168.1.230:8080"
 
 class ApiService {
     // userApiService
@@ -14,7 +14,7 @@ class ApiService {
         return axios.post(USER_API_BASE_URL + "/users/account/signup/reqsecret",user, { withCredentials: true });
     }
     logoutUser(){
-        return axios.get(USER_API_BASE_URL + "/users/account/logout", {withCredentials:true});
+        return axios.post(USER_API_BASE_URL + "/users/account/logout", '',{ withCredentials:true });
     }
 
     // ideaApiService

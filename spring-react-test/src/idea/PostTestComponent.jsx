@@ -7,7 +7,6 @@ class PostTestComponent extends Component {
 
         this.state = {
             project_name : '',
-            banker_id : window.localStorage.getItem("user"),
             short_description : '',
             category : '',
             goodsList : [
@@ -30,7 +29,7 @@ class PostTestComponent extends Component {
                     price : 20000
                 },
                 {
-                    goods_type : 'markey_analysis',
+                    goods_type : 'market_analysis',
                     open_status : 0,
                     content : '저의 시장분석 입니다.',
                     price : 20000
