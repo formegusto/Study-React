@@ -18,6 +18,7 @@ export default function usePromise(promiseCreator, deps){
             setLoading(false);
         }
         process();
+        // eslint-disable-next-line
     }, deps);
 
     return [loading, resolved, error];
