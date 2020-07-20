@@ -5,6 +5,8 @@ const KaKaoTestComponent = () => {
     const payTest = () => {
         ApiService.payTest()
         .then(res => {
+            console.log(res.data);
+            
             let win = window.open(res.data);
 
             const win_interval = window.setInterval(function() {
@@ -18,6 +20,7 @@ const KaKaoTestComponent = () => {
                     console.log(e);
                 }
             }, 500);
+            
         }).catch(err => {
             console.log(err.responseURL);
         })
