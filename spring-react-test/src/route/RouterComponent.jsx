@@ -8,6 +8,8 @@ import DetailTestComponent from '../idea/DetailTestComponent';
 import UpdateTestComponent from '../idea/UpdateTestComponent';
 import LikeyListComponent from '../idea/LikeyListComponent';
 import MyListComponent from '../idea/MyListComponent';
+import KaKaoTestComponent from '../test/KaKaoTestComponent';
+import KaKaoSuccessTestComponent from '../test/KaKaoSuccessTestComponent';
 
 const AppRouter = () => {
     return(
@@ -23,6 +25,8 @@ const AppRouter = () => {
                         <Route path="/update" component={UpdateTestComponent}/>
                         <Route path="/likeyList" component={LikeyListComponent}/>
                         <Route path="/myList" component={MyListComponent}/>
+                        <Route path="/kakaoTest" component={KaKaoTestComponent}/>
+                        <Route path="/kakaoPaySuccess" component={KaKaoSuccessTestComponent}/>}
                     </Switch>
                 </div>
             </BrowserRouter>

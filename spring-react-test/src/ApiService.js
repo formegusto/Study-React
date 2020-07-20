@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const USER_API_BASE_URL = "http://192.168.1.230:8080"
+const USER_API_BASE_URL = "http://localhost:8080"
 
 class ApiService {
     // userApiService
@@ -53,6 +53,13 @@ class ApiService {
     }
     searchList(search){
         return axios.get(USER_API_BASE_URL + "/idea/list/search?type=" + search.type + "&keyword=" + search.keyword, {withCredentials : true});
+    }
+
+    payTest(){
+        return axios.post(USER_API_BASE_URL + "/kakaoPay", "",
+            {
+                withCredentials: true,
+            });
     }
 }
 
