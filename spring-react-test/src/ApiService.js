@@ -1,8 +1,11 @@
 import axios from 'axios';
+import cors from 'cors';
 
-const USER_API_BASE_URL = "http://localhost:8080"
+const USER_API_BASE_URL = "http://192.168.1.230:8080"
 
 class ApiService {
+    
+
     // userApiService
     signinUser(user){
         return axios.post(USER_API_BASE_URL + '/users/account/signin',user, { withCredentials: true });
@@ -60,6 +63,34 @@ class ApiService {
             {
                 withCredentials: true,
             });
+    }
+    payTest_2(){
+        return axios.post("https://kapi.kakao.com/v1/payment/ready",
+            {
+                cid: "TC0ONETIME",
+                partner_order_id: "1001",
+                partner_user_id: "gorany",
+                item_name: "갤럭시S9",
+                quantity: "1",
+                total_amount: "2100",
+                tax_free_amount: "100",
+                approval_url: "http://localhost:3000/kakaoPaySuccess",
+                cancel_url: "http://localhost:8080/kakaoPayCancel",
+                fail_url: "http://localhost:8080/kakaoPaySuccessFail",
+            },
+            {
+                headers : {
+                    'Authorization': "KakaoAK 1a5a5ce44928a8933b2976817b6bf16c",
+                    'Accept': "application/json;charset=UTF-8",
+                    'Content-Type': "application/x-www-form-urlencoded;charset=UTF-8",
+                },
+                withCredentials: true,
+                credentials: true,
+            },
+            );
+    }
+    paySuccess(pg_token){
+        return axios.get("http://192.168.1.230:8080/kakaoPaySuccess?pg_token=" + pg_token,{withCredentials:true});
     }
 }
 

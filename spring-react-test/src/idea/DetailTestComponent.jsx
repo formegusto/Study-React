@@ -15,6 +15,17 @@ class DetailTestComponent extends Component {
             competitiveness : {},
             goodsSeqList : [],
             do_you_like : '',
+            goodsList: [
+                {
+                    goods_seq : 31
+                },
+                {
+                    goods_seq : 32
+                },
+                {
+                    goods_seq : 34
+                },
+            ]
         }
     }
     componentDidMount = () => {
@@ -28,7 +39,7 @@ class DetailTestComponent extends Component {
                 market_analysis : res.data.goodsList[3],
                 competitiveness : res.data.goodsList[4],
                 goodsSeqList : res.data.goodsList.reduce((acc, cur) =>{
-                            if(cur.open_status === 0){
+                            if(cur.open_status){
                                 acc.push(cur.goods_seq);
                                 return acc;
                             }
@@ -134,6 +145,10 @@ class DetailTestComponent extends Component {
                 <button onClick={this.goHome}>집가자..</button>
                 <button onClick={this.goUpdate}>수정하기</button>
                 <button onClick={this.goAllPurchase}>전체 구매</button>
+                <form method="post" action="http://localhost:8080/kakaoPay">
+                    <input type="hidden" value={[1,2,3]} name="goodsSeqList"/>
+                    <button type="submit">체크 구매</button>
+                </form>
                 <button onClick={this.goPurchase}>체크한거 사기</button>
                 {this.state.do_you_like === 1 ? <button onClick={this.gounLikey}>안좋아졌어요</button>
                     : <button onClick={this.goLikey}>좋아요 누르기</button>} 
