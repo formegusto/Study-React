@@ -11,7 +11,13 @@ const KaKaoSuccessTestComponent = ({location}) => {
         })
         const pg_token = query.pg_token;
         console.log(pg_token);
-        ApiService.paySuccess(pg_token);
+        ApiService.paySuccess(window.localStorage.getItem("goodsSeqList"))
+        .then(res => {
+            console.log("디비 넣었다");
+        }).catch(err => {
+            console.log("디비 에러ㅠ");
+        })
+
     })
     return (
         <div>

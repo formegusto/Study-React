@@ -38,13 +38,7 @@ class DetailTestComponent extends Component {
                 strategy : res.data.goodsList[2],
                 market_analysis : res.data.goodsList[3],
                 competitiveness : res.data.goodsList[4],
-                goodsSeqList : res.data.goodsList.reduce((acc, cur) =>{
-                            if(cur.open_status){
-                                acc.push(cur.goods_seq);
-                                return acc;
-                            }
-                            return acc;
-                        },[])
+                goodsSeqList : []
             })
             console.log(this.state.goodsSeqList);
             console.log(this.state.idea);
@@ -125,28 +119,32 @@ class DetailTestComponent extends Component {
         ApiService.unLikey(likey);
     }
 
+    onSubmit = () => {
+        window.localStorage.setItem("goodsSeqList", this.state.goodsSeqList);
+    }
+
     render() {
         return (
             <div>
                 <h2>seq : {this.state.idea.idea_seq}</h2>
                 <h2>name : {this.state.idea.project_name}</h2>
                 <h2>short : {this.state.idea.short_description}</h2>
-                <h2>motivation : {this.state.motivation.open_status === 1 ? 
+                <h2>motivation : {this.state.motivation.open_status ? 
                     this.state.motivation.content : <div><button value={this.state.motivation.goods_seq} onClick={this.goPurchase}>구매하고 봐라 나의 몸값은 ${this.state.motivation.price} 원이다.</button><input type="checkbox" value={this.state.motivation.goods_seq} onChange={this.goGoodsSeq}/></div> } </h2>
-                <h2>need : {this.state.need.open_status === 1 ? 
+                <h2>need : {this.state.need.open_status ? 
                     this.state.need.content :<div><button value={this.state.need.goods_seq} onClick={this.goPurchase}>구매하고 봐라 나의 몸값은 ${this.state.need.price} 원이다.</button><input type="checkbox" value={this.state.need.goods_seq} onChange={this.goGoodsSeq}/></div> } </h2>
-                <h2>strategy : {this.state.strategy.open_status === 1 ? 
+                <h2>strategy : {this.state.strategy.open_status ? 
                     this.state.strategy.content : <div><button value={this.state.strategy.goods_seq} onClick={this.goPurchase}>구매하고 봐라 나의 몸값은 ${this.state.strategy.price} 원이다.</button><input type="checkbox" value={this.state.strategy.goods_seq} onChange={this.goGoodsSeq}/></div> } </h2>
-                <h2>market_analysis : {this.state.market_analysis.open_status === 1 ? 
+                <h2>market_analysis : {this.state.market_analysis.open_status ? 
                     this.state.market_analysis.content : <div><button value={this.state.market_analysis.goods_seq} onClick={this.goPurchase}>구매하고 봐라 나의 몸값은 ${this.state.market_analysis.price} 원이다.</button><input type="checkbox" value={this.state.market_analysis.goods_seq} onChange={this.goGoodsSeq}/></div> } </h2>
-                <h2>competitiveness : {this.state.competitiveness.open_status === 1 ? 
+                <h2>competitiveness : {this.state.competitiveness.open_status ? 
                     this.state.competitiveness.content : <div><button value={this.state.competitiveness.goods_seq} onClick={this.goPurchase}>구매하고 봐라 나의 몸값은 ${this.state.competitiveness.price} 원이다.</button><input type="checkbox" value={this.state.competitiveness.goods_seq} onChange={this.goGoodsSeq}/></div> } </h2>
                 <hr/>
                 <button onClick={this.goHome}>집가자..</button>
                 <button onClick={this.goUpdate}>수정하기</button>
                 <button onClick={this.goAllPurchase}>전체 구매</button>
-                <form method="post" action="http://localhost:8080/kakaoPay">
-                    <input type="hidden" value={[1,2,3]} name="goodsSeqList"/>
+                <form onSubmit={this.onSubmit} method="post" action="http://192.168.1.230:8080/purchase">
+                    <input type="hidden" value={this.state.goodsSeqList} name="purchaseList"/>
                     <button type="submit">체크 구매</button>
                 </form>
                 <button onClick={this.goPurchase}>체크한거 사기</button>

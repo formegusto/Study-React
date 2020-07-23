@@ -89,8 +89,9 @@ class ApiService {
             },
             );
     }
-    paySuccess(pg_token){
-        return axios.get("http://192.168.1.230:8080/kakaoPaySuccess?pg_token=" + pg_token,{withCredentials:true});
+    paySuccess(goodsSeqList_){
+        console.log(goodsSeqList_);
+        return axios.post(USER_API_BASE_URL + "/kakaoPaySuccess",goodsSeqList_,{withCredentials:true});
     }
 }
 
